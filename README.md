@@ -1,5 +1,4 @@
 #Gifcam Code for Pix-E LoFi Gif Camera
-=======================
 
 ##A DIY Raspberry Pi based camera that:
 - Creates animated gifs
