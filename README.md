@@ -1,6 +1,6 @@
 #Gifcam Code for Pix-E LoFi Gif Camera
 
-##A DIY Raspberry Pi based camera that:
+######A DIY Raspberry Pi Zero based camera:
 - Creates animated gifs
 - Optionally can post gifs to twitter
 
