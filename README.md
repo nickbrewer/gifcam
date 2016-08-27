@@ -16,5 +16,5 @@ Steps:
   - Install GraphicsMagick -- sudo apt-get install graphicsmagick
   - Install Gitcore -- sudo apt-get install git-core
   - Optional, Install twython -- https://github.com/ryanmcgrath/twython
-  - Create Autorun Script - http://www.raspberrypi-spy.co.uk/2015/02/how-to-autorun-a-python-script-on-raspberry-pi-boot/
+  - Create Autorun Script - http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/
   
