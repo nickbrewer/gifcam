@@ -5,7 +5,6 @@ import RPi.GPIO as GPIO
 from os import system
 import os
 import shutil
-from twython import Twython
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
