@@ -17,4 +17,5 @@ Steps:
   - Install Gitcore -- sudo apt-get install git-core
   - Optional, Install twython -- https://github.com/ryanmcgrath/twython
   - Create Autorun Script - http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/
+  - (The launcher.sh in this git is setup for the basic gifcam, if you want to use twython you'll have to modify this)
   
