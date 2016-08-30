@@ -23,10 +23,10 @@ GPIO.setup(led_2, GPIO.OUT)
 num_pics = 8 #Number of pictures to take in Gif
 gif_delay = 15 #How much delay in between those pictures (in milliseconds)
 
-APP_KEY = 'OqzPbTq3Ms0h3LXOE2Mh4EbDr'
-APP_SECRET = 'dTrgSZaNf7ik9KCresmwGQZJ3Y6x3j74HAXQ3J6KAsqWKBbSzb'
-OAUTH_TOKEN = '15090610-Wu9x4Xj03ClefFoCLSgo48K9eV2UKuj7KMNHuaNbr'
-OAUTH_TOKEN_SECRET = 'kHsvgnEpO7JVPuvB3JhJE0DnQZHeWo0B9lfryBWc7Vg56'
+APP_KEY = 'YOUR APP KEY'
+APP_SECRET = 'YOUR APP SECRET'
+OAUTH_TOKEN = 'YOUR OAUTH TOKEN'
+OAUTH_TOKEN_SECRET = 'YOUR OAUTH TOKEN SECRET'
 
 #setup the twitter api client
 twitter = Twython(APP_KEY, APP_SECRET,
