@@ -5,13 +5,17 @@ import RPi.GPIO as GPIO
 from os import system
 import os
 from twython import Twython
+import random, string
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
-button = 26 #Button GPIO Pin
+button = 19 #Button GPIO Pin
+
 GPIO.setup(button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-led = 21 #LED GPIO Pin
-GPIO.setup(led, GPIO.OUT)
+led_1 = 21 #Status LED GPIO Pin
+GPIO.setup(led_1, GPIO.OUT)
+led_2 = 12 #ON/OFF LED Pin
+GPIO.setup(led_2, GPIO.OUT)
 
 ########################
 ### Variables Config ###
@@ -19,14 +23,17 @@ GPIO.setup(led, GPIO.OUT)
 num_pics = 8 #Number of pictures to take in Gif
 gif_delay = 15 #How much delay in between those pictures (in milliseconds)
 
-APP_KEY = 'INSERT YOUR APP_KEY'
-APP_SECRET = 'INSERT YOUR APP_SECRET'
-OAUTH_TOKEN = 'INSERT YOUR OAUTH_TOKEN'
-OAUTH_TOKEN_SECRET = 'INSERT YOUR OAUTH_TOKEN'
+APP_KEY = 'OqzPbTq3Ms0h3LXOE2Mh4EbDr'
+APP_SECRET = 'dTrgSZaNf7ik9KCresmwGQZJ3Y6x3j74HAXQ3J6KAsqWKBbSzb'
+OAUTH_TOKEN = '15090610-Wu9x4Xj03ClefFoCLSgo48K9eV2UKuj7KMNHuaNbr'
+OAUTH_TOKEN_SECRET = 'kHsvgnEpO7JVPuvB3JhJE0DnQZHeWo0B9lfryBWc7Vg56'
 
 #setup the twitter api client
 twitter = Twython(APP_KEY, APP_SECRET,
                   OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+                  
+def random_generator(size=10, chars=string.ascii_uppercase + string.digits):
+    return ''.join(random.choice(chars) for x in range(size))
 
 def tweet_pics():
     print('Posting to Twitter')
@@ -43,15 +50,16 @@ print('System Ready')
 
 while True:
     input_state = GPIO.input(button) # Sense the button 
-    now = time.strftime("%Y%m%d%H%M%S")
+    randomstring = random_generator()
     if input_state == False:
     	# Switch off LED
-        GPIO.output(led, 1)
+        GPIO.output(led_1, 1)
+        GPIO.output(led_2, 1)
         print('Gif Started')
         for i in range(num_pics):
     		camera.capture('image{0:04d}.jpg'.format(i))
-        filename = '/home/pi/gifcam/gifs/' + now + '-0'
-        GPIO.output(led, 0)
+        filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
+        GPIO.output(led_1, 0)
     	print('Processing')
         graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
         os.system(graphicsmagick)
@@ -59,9 +67,9 @@ while True:
         print('Done')
     else :
         # Switch on LED
-        GPIO.output(led, 1)
+        GPIO.output(led_1, 1)
         time.sleep(0.35)
-        GPIO.output(led, 0)
+        GPIO.output(led_1, 0)
         time.sleep(0.35)
         
        
