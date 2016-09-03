@@ -15,7 +15,10 @@
   - Install GraphicsMagick -- sudo apt-get install graphicsmagick
   - Install Gitcore -- sudo apt-get install git-core
   - Optional, Install twython -- https://github.com/ryanmcgrath/twython
+  - Optional, install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
   - Create Autorun Script - http://www.instructables.com/id/Raspberry-Pi-Launch-Python-script-on-startup/
   
-  (The launcher.sh in this git is setup for the basic gifcam, if you want to use twython you'll have to modify this)
+  (The launcher.sh in this git is setup for the basic gifcam, if you want to use twython or USB you'll have to modify this)
+  
+
   
