@@ -1,7 +1,6 @@
 Raspberry Pi Zero 1.3 + Camera - https://www.adafruit.com/products/3170
 2500mAh LiPo Battery - https://www.adafruit.com/products/328 
-USB Wifi Card - https://www.adafruit.com/products/2810
-16mm Illuminated Pushbutton - https://www.adafruit.com/products/1441
+16mm Illuminated Pushbutton - https://www.adafruit.com/products/1441 (Doesn't have to illuminate, but it's nice)
 PowerBoost 500c - https://www.adafruit.com/products/1944 
 
 (At Least) 16GB SD Micro - https://www.amazon.com/SanDisk-Ultra-Micro-Adapter-SDSQUNC-016G-GN6MA/dp/B010Q57SEE/ref=sr_1_2?ie=UTF8&qid=1472321434&sr=8-2&keywords=16gb+micro+sd 
@@ -12,6 +11,7 @@ M2 x 6mm Machine Screws -  https://www.amazon.com/gp/product/B00F33TFRS/ref=oh_a
 
 M2.5 x 10mm Machine Screws - https://www.amazon.com/Stainless-Steel-Phillips-Round-Screws/dp/B012TF586O/ref=sr_1_3?s=industrial&ie=UTF8&qid=1472317308&sr=1-3&keywords=m2.5+x+10mm 
 
-SPDT Slide Switch - https://www.amazon.com/Position-Panel-Switch-Solder-SS12F15G3/dp/B008DFYT0Q/ref=sr_1_7?ie=UTF8&qid=1472317437&sr=8-7&keywords=slide+switch 
+Slide Switch - I couldn't find the exact switch I used, I used a small rocker switch. 
 
 (Optional) – Lenses - https://www.amazon.com/gp/product/B00XVECB6S/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1
+(Optional) USB Wifi Card - https://www.adafruit.com/products/2810
