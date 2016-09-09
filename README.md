@@ -4,6 +4,9 @@
 - Creates animated gifs
 - Optionally can post gifs to twitter
 
+##3D Printer Files:
+- Download Here - http://www.thingiverse.com/thing:1761082
+
 ##This requires:
   - PiCamera -- http://picamera.readthedocs.org/ 
   - Gitcore
