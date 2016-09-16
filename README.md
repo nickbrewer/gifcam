@@ -24,8 +24,8 @@
   - Optional, install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
 
 ##Create Autorun Script:
-  - Type -- sudo crontab -e
-  - add line to end of that file @reboot sh /home/pi/gifcam/launcher.sh
+  - Run -- sudo crontab -e
+  - add this line to end of that file - @reboot sh /home/pi/gifcam/launcher.sh
   
   (The launcher.sh in this git is setup for the basic gifcam, if you want to use twython or USB you'll have to modify this)
   
