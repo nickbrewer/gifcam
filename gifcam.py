@@ -41,10 +41,15 @@ while True:
         GPIO.output(led_1, 1)
         print('Gif Started')
         for i in range(num_pics):
-            camera.capture('{0:d}.jpg'.format(i))
-        if boomerang == True:
-            for i in range(num_pics):
-                copyCommand = "cp " + str(num_pics - 1 - i) +".jpg "+ str(num_pics + i) + ".jpg"
+            camera.capture('{0:04d}.jpg'.format(i))
+
+        if boomerang == True: # make copy of images in reverse order
+            for i in range(num_pics - 1):
+                source = str(num_pics - i - 1) + ".jpg"
+                source = source.zfill(8) # pad with zeros
+                dest = str(num_pics + i) + ".jpg"
+                destpad = dest.zfill(8) # pad with zeros
+                copyCommand = "cp " + source + " " + destpad
                 os.system(copyCommand)
                 
         filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
@@ -52,6 +57,7 @@ while True:
         print('Processing')
         graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
         os.system(graphicsmagick)
+        os.system("rm ./*.jpg") # cleanup source images
         print('Done')
         print('System Ready')
     else :
