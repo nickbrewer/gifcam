@@ -19,8 +19,9 @@ GPIO.setup(led_2, GPIO.OUT)
 ########################
 ### Variables Config ###
 ########################
-num_pics = 8 #Number of pictures to take in Gif
-gif_delay = 15 #How much delay in between those pictures (in milliseconds)    
+num_pics = 8        # Number of pictures to take in Gif
+gif_delay = 15      # How much delay in between those pictures (in milliseconds)
+boomerang = True    # create a video that loops start <=> end
 
 camera = picamera.PiCamera()
 camera.resolution = (540, 405)
@@ -40,10 +41,15 @@ while True:
         GPIO.output(led_1, 1)
         print('Gif Started')
         for i in range(num_pics):
-    		camera.capture('image{0:04d}.jpg'.format(i))
+            camera.capture('{0:d}.jpg'.format(i))
+        if boomerang == True:
+            for i in range(num_pics):
+                copyCommand = "cp " + str(num_pics - 1 - i) +".jpg "+ str(num_pics + i) + ".jpg"
+                os.system(copyCommand)
+                
         filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
         GPIO.output(led_1, 0)
-    	print('Processing')
+        print('Processing')
         graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
         os.system(graphicsmagick)
         print('Done')
