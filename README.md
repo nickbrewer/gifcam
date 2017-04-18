@@ -3,7 +3,9 @@
 ### ToDo:
 - Create boomerang effect
 - cleanup .jpg source files
-- working directory referencing, this is so you can cleanup source images with: rm $workingDir/\*.jpg command
+- working directory referencing, this is so you can cleanup source images with: `rm $workingDir/\*.jpg`
+- samba shared folder to pull images off over wifi?
+- smart twitter handling for when gifs are taken and you're not on wifi? If an image upload fails it gets pushed onto a re-attempt stack, which attempts to pop each time a gif is taken / an upload button pressed!
 
 ###### A DIY Raspberry Pi Zero based camera:
 - Creates animated gifs
