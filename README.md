@@ -10,7 +10,7 @@
 - When you press the button, the button LED will strobe to indicate that the camera is recording.
 - When recording finishes, the button LED will switch off.
 - The status LED will blink while the GIF is being processed (and optionally, tweeted)
-- When processing is finished, the camera will return to the READY state, and the button LED will be on.
+- When processing is finished, the camera will return to the READY state, and the button LED will illuminate.
 
 ## ToDo:
 - working directory referencing, this is so you can cleanup source images with: `rm $workingDir/\*.jpg` rather than from within the repo main directory
