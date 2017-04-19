@@ -20,13 +20,15 @@ GPIO.setup(led_2, GPIO.OUT)
 ########################
 ### Variables Config ###
 ########################
-num_pics = 8 #Number of pictures to take in Gif
-gif_delay = 15 #How much delay in between those pictures (in milliseconds)
+num_pics = 8    # Number of pictures to take in Gif
+gif_delay = 15  # How much delay in between those pictures (in milliseconds)
+rebound = True  # create a video that loops start <=> end
 
-APP_KEY = 'YOUR APP KEY'
-APP_SECRET = 'YOUR APP SECRET'
-OAUTH_TOKEN = 'YOUR OAUTH TOKEN'
-OAUTH_TOKEN_SECRET = 'YOUR OAUTH TOKEN SECRET'
+
+APP_KEY = 'YOUR API KEY'
+APP_SECRET = 'YOUR API SECRET'
+OAUTH_TOKEN = 'YOUR ACCESS TOKEN'
+OAUTH_TOKEN_SECRET = 'YOUR ACCESS TOKEN SECRET'
 
 #setup the twitter api client
 twitter = Twython(APP_KEY, APP_SECRET,
@@ -57,12 +59,23 @@ while True:
         GPIO.output(led_2, 1)
         print('Gif Started')
         for i in range(num_pics):
-    		camera.capture('image{0:04d}.jpg'.format(i))
+            camera.capture('{0:04d}.jpg'.format(i))
+
+        if rebound == True: # make copy of images in reverse order
+            for i in range(num_pics - 1):
+                source = str(num_pics - i - 1) + ".jpg"
+                source = source.zfill(8) # pad with zeros
+                dest = str(num_pics + i) + ".jpg"
+                dest = dest.zfill(8) # pad with zeros
+                copyCommand = "cp " + source + " " + dest
+                os.system(copyCommand)
+        
         filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
         GPIO.output(led_1, 0)
-    	print('Processing')
+        print('Processing')
         graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
         os.system(graphicsmagick)
+        os.system("rm ./*.jpg") # cleanup source images
         tweet_pics()
         print('Done')
     else :

@@ -21,7 +21,7 @@ GPIO.setup(led_2, GPIO.OUT)
 ########################
 num_pics = 8        # Number of pictures to take in Gif
 gif_delay = 15      # How much delay in between those pictures (in milliseconds)
-boomerang = True    # create a video that loops start <=> end
+rebound = True      # create a video that loops start <=> end
 
 camera = picamera.PiCamera()
 camera.resolution = (540, 405)
@@ -43,13 +43,13 @@ while True:
         for i in range(num_pics):
             camera.capture('{0:04d}.jpg'.format(i))
 
-        if boomerang == True: # make copy of images in reverse order
+        if rebound == True: # make copy of images in reverse order
             for i in range(num_pics - 1):
                 source = str(num_pics - i - 1) + ".jpg"
                 source = source.zfill(8) # pad with zeros
                 dest = str(num_pics + i) + ".jpg"
-                destpad = dest.zfill(8) # pad with zeros
-                copyCommand = "cp " + source + " " + destpad
+                dest = dest.zfill(8) # pad with zeros
+                copyCommand = "cp " + source + " " + dest
                 os.system(copyCommand)
                 
         filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
