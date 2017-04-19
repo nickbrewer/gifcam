@@ -13,8 +13,10 @@ button = 19 #Button GPIO Pin
 GPIO.setup(button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 led_1 = 12 #Status LED GPIO Pin
 GPIO.setup(led_1, GPIO.OUT)
+buttonLed = GPIO.PWM(led_1, 10)
 led_2 = 21 #ON/OFF LED Pin
 GPIO.setup(led_2, GPIO.OUT)
+statusLed = GPIO.PWM(led_2, 2)
 
 ########################
 ### Variables Config ###
@@ -28,43 +30,57 @@ camera.resolution = (540, 405)
 camera.rotation = 90
 #camera.brightness = 70
 camera.image_effect = 'none'
-GPIO.output(led_2, 1)
+##GPIO.output(led_2, 1)
+
+# Indicate ready status
+buttonLed.start(100)
+statusLed.start(0)
+
 print('System Ready')
 
 def random_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
-while True:
-    input_state = GPIO.input(button) # Sense the button
-    randomstring = random_generator()
-    if input_state == False:
-        GPIO.output(led_1, 1)
-        print('Gif Started')
-        for i in range(num_pics):
-            camera.capture('{0:04d}.jpg'.format(i))
-
-        if rebound == True: # make copy of images in reverse order
-            for i in range(num_pics - 1):
-                source = str(num_pics - i - 1) + ".jpg"
-                source = source.zfill(8) # pad with zeros
-                dest = str(num_pics + i) + ".jpg"
-                dest = dest.zfill(8) # pad with zeros
-                copyCommand = "cp " + source + " " + dest
-                os.system(copyCommand)
-                
-        filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
-        GPIO.output(led_1, 0)
-        print('Processing')
-        graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
-        os.system(graphicsmagick)
-        os.system("rm ./*.jpg") # cleanup source images
-        print('Done')
-        print('System Ready')
-    else :
-        # Switch on LED
-        GPIO.output(led_1, 1)
-        time.sleep(0.35)
-        GPIO.output(led_1, 0)
-        time.sleep(0.35)
+try:
+    while True:
+        input_state = GPIO.input(button) # Sense the button
         
-       
+        if input_state == False:
+
+            ### TAKING PICTURES ###
+            print('Gif Started')
+            statusLed.ChangeDutyCycle(0)
+            buttonLed.ChangeDutyCycle(50)
+
+            randomstring = random_generator()
+            for i in range(num_pics):
+                camera.capture('{0:04d}.jpg'.format(i))
+
+            ### PROCESSING PICTURES ###
+            statusLed.ChangeDutyCycle(50)
+            buttonLed.ChangeDutyCycle(0)
+            if rebound == True: # make copy of images in reverse order
+                for i in range(num_pics - 1):
+                    source = str(num_pics - i - 1) + ".jpg"
+                    source = source.zfill(8) # pad with zeros
+                    dest = str(num_pics + i) + ".jpg"
+                    dest = dest.zfill(8) # pad with zeros
+                    copyCommand = "cp " + source + " " + dest
+                    os.system(copyCommand)
+                    
+            filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
+            print('Processing')
+            graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
+            os.system(graphicsmagick)
+            os.system("rm ./*.jpg") # cleanup source images
+            print('Done')
+            print('System Ready')
+
+        else :
+            ### READY TO TAKE PICTURES ###
+            statusLed.ChangeDutyCycle(0)
+            buttonLed.ChangeDutyCycle(100)
+            
+           
+except:
+    GPIO.cleanup()
