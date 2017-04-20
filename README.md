@@ -42,7 +42,7 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
   - Make sure camera interface is enabled with `sudo raspi-config` > Interfacing Options > Camera
   - Install GraphicsMagick -- `sudo apt-get install graphicsmagick`
   - Install Gitcore -- `sudo apt-get install git-core`
-  - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
+  - Install GifCam -- `git clone https://github.com/michaelruppe/gifcam.git`
   - Install pip: `sudo apt-get install python-pip`
   - Install twython: `sudo pip install twython` -- https://github.com/ryanmcgrath/twython
   - Create a twitter app at https://apps.twitter.com/ and populate `gifcam.py` with the necessary credentials. If you don't want to tweet your GIFs, don't create the app, and disable the functionality by setting `tweet = False` in `gifcam.py`.
@@ -60,8 +60,8 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
   
 ### Optional: Setup a Samba shared directory to access your GIFs over WiFi
   - Install samba: `sudo apt-get install samba samba-common-bin`
-  - Create a backup of the default samba configuration: `sudo mv /etc/samba/smb.conf /etc/samba/smb.conf/$(date +%F)`
-    This will create a copy, with to day's date on the extension.
+  - Create a backup of the default samba configuration: `sudo cp /etc/samba/smb.conf /etc/samba/smb.conf_$(date +%F)`
+    This will create a copy, with today's date on the extension.
   -  Set the gif directory as a shared directory: `sudo nano /etc/samba/smb.conf` and add the following chunk:
   ```
   [gifs]
@@ -70,6 +70,8 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
     browseable = yes
     read only = no
   ```
+  - Create samba users: execute `sudo smbpasswd -a pi` and enter your desired password. Whether you choose to keep this as the default (unsecure) is up to you. This will be the username and password required to access the shared folder.
+  - Note: the gifs directory does not exist yet. It will be created when you snap your first GIF, or if you manually create it with `mkdir /home/pi/gifcam/gifs`.
   
 ## In-Depth instructions (Pi Zero W from first boot. These instructions will work for other models except for USB OTG steps)
   - Flash SD card with Jessie Lite
