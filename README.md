@@ -12,10 +12,10 @@
 - The status LED will blink while the GIF is being processed (and optionally, tweeted)
 - When processing is finished, the camera will return to the READY state, and the button LED will illuminate.
 
-## ToDo:
-- working directory referencing, this is so you can cleanup source images with: `rm $workingDir/\*.jpg` rather than from within the repo main directory
-- samba shared folder to pull images off over wifi (Pi Zero W)
-- smart twitter handling for when gifs are taken and you're not on wifi? If an image upload fails it gets pushed onto a re-attempt stack, which attempts to pop each time a gif is taken / an upload button pressed!
+## Change Camera Behaviour
+The behaviour of the camera is controlled by a few _Behaviour Variables_. These are in `gifcam.py`.
+With these variables you can change the frame-number and time duration of gifs, and control tweeting behaviour.
+
 
 ## 3D Printer Files:
 - Download Here - http://www.thingiverse.com/thing:1761082
@@ -35,8 +35,9 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Install GraphicsMagick -- `sudo apt-get install graphicsmagick`
   - Install Gitcore -- `sudo apt-get install git-core`
   - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
-  - Optional, Install twython -- https://github.com/ryanmcgrath/twython
-  - Optional, install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
+  - Install twython -- https://github.com/ryanmcgrath/twython
+  - Optional; Install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
+  - Optional; Create a twitter app at https://apps.twitter.com/ and populate `gifcam.py` with the necessary credentials. If you don't want to tweet your GIFs, don't create the app, and disable the functionality by setting `tweet = False` in `gifcam.py`.
   - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
 
 
@@ -69,3 +70,9 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Power the Pi and open an SSH session. If you're accessing over wifi, SSH to `pi@raspberrypi`. If you're accessing over USB OTG, SSH to `pi@raspberrypi.local`
   - On first boot give the Pi a meaningful hostname, like `gifcam`. This will avoid hostname conflicts on your network if you deploy another Raspberry Pi.
   - Follow the _Basic Setup_ instructions
+
+
+## ToDo:
+- working directory referencing, this is so you can cleanup source images with: `rm $workingDir/\*.jpg` rather than from within the repo main directory
+- samba shared folder to pull images off over wifi (Pi Zero W)
+- smart twitter handling for when gifs are taken and you're not on wifi? If an image upload fails it gets pushed onto a re-attempt stack, which attempts to pop each time a gif is taken / an upload button pressed!
