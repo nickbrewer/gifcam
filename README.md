@@ -36,7 +36,7 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
   - Optional, Install twython -- https://github.com/ryanmcgrath/twython
   - Optional, install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
-  - To access your GIFs over WiFi, install samba -- `sudo apt-get install samba`
+  - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
 
 ### Create Autorun Script:
   - Run -- sudo crontab -e
