@@ -50,7 +50,6 @@
   
 ## In-Depth instructions
   - Flash SD card with Jessie Lite
-  - Setup card to access wifi network, USB OTG access and SSH. This will allow you to always administrate the wifi credentials if you are not on a network, without having to remove the SD card.
   - Setup USB OTG network access. This will allow you to always SSH into the Pi via a direct connection through USB.
     - Open the boot partition (in Windows Explorer, Finder etc) and add to the bottom of the `config.txt` file `dtoverlay=dwc2` on a new line, then save the file.
     - Open `cmdline.txt`. Very careful with the syntax in this file: Each parameter is seperated by a single space (it does not use newlines). Insert `modules-load=dwc2,g_ether` after rootwait
