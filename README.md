@@ -31,6 +31,7 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Run -- `sudo apt-get update`
   - Run -- `sudo apt-get upgrade`
   - Install PiCamera -- `sudo apt-get install python-picamera`
+  - Make sure camera interface is enabled with `sudo raspi-config` > Interfaces > Camera
   - Install GraphicsMagick -- `sudo apt-get install graphicsmagick`
   - Install Gitcore -- `sudo apt-get install git-core`
   - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
