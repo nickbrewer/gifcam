@@ -27,14 +27,15 @@
   - (Optional) twython -- https://github.com/ryanmcgrath/twython
 
 ## Steps:
-  - Run -- sudo apt-get update
-  - Run -- sudo apt-get upgrade
-  - Install PiCamera -- sudo apt-get install python-picamera
-  - Install GraphicsMagick -- sudo apt-get install graphicsmagick
-  - Install Gitcore -- sudo apt-get install git-core
-  - Install GifCam -- sudo git clone https://github.com/nickbrewer/gifcam.git
+  - Run -- `sudo apt-get update`
+  - Run -- `sudo apt-get upgrade`
+  - Install PiCamera -- `sudo apt-get install python-picamera`
+  - Install GraphicsMagick -- `sudo apt-get install graphicsmagick`
+  - Install Gitcore -- `sudo apt-get install git-core`
+  - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
   - Optional, Install twython -- https://github.com/ryanmcgrath/twython
   - Optional, install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
+  - To access your GIFs over WiFi, install samba -- `sudo apt-get install samba`
 
 ## Create Autorun Script:
   - Run -- sudo crontab -e
