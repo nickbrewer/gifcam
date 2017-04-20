@@ -33,6 +33,7 @@ For now these variables are programmed into the script, but it would be trivial 
 
 ## Basic Setup (if you already have a working Pi):
 Detailed steps on how to get your Pi Zero W up and running without a keyboard, monitor or mouse are covered at the bottom of this text, in the _In-Depth Instructions_
+Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. If you're running the full version of Raspbian instead, several of these steps will be redundant - it won't hurt to execute each install command though, you'll just be notified that you already have a given software package.
   - Run -- `sudo apt-get update`
   - Run -- `sudo apt-get upgrade`
   - Install PiCamera -- `sudo apt-get install python-picamera`
@@ -40,9 +41,10 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Install GraphicsMagick -- `sudo apt-get install graphicsmagick`
   - Install Gitcore -- `sudo apt-get install git-core`
   - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
-  - Install twython -- https://github.com/ryanmcgrath/twython
+  - Install pip: `sudo apt-get install python-pip`
+  - Install twython: `pip install twython` -- https://github.com/ryanmcgrath/twython
+  - Create a twitter app at https://apps.twitter.com/ and populate `gifcam.py` with the necessary credentials. If you don't want to tweet your GIFs, don't create the app, and disable the functionality by setting `tweet = False` in `gifcam.py`.
   - Optional; Install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
-  - Optional; Create a twitter app at https://apps.twitter.com/ and populate `gifcam.py` with the necessary credentials. If you don't want to tweet your GIFs, don't create the app, and disable the functionality by setting `tweet = False` in `gifcam.py`.
   - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
 
 
