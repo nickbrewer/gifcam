@@ -34,6 +34,8 @@ For now these variables are programmed into the script, but it would be trivial 
 ## Basic Setup (if you already have a working Pi):
 Detailed steps on how to get your Pi Zero W up and running without a keyboard, monitor or mouse are covered at the bottom of this text, in the _In-Depth Instructions_
 Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. If you're running the full version of Raspbian instead, several of these steps will be redundant - it won't hurt to execute each install command though, you'll just be notified that you already have a given software package.
+
+### Install Dependencies
   - Run -- `sudo apt-get update`
   - Run -- `sudo apt-get upgrade`
   - Install PiCamera -- `sudo apt-get install python-picamera`
@@ -44,18 +46,30 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
   - Install pip: `sudo apt-get install python-pip`
   - Install twython: `sudo pip install twython` -- https://github.com/ryanmcgrath/twython
   - Create a twitter app at https://apps.twitter.com/ and populate `gifcam.py` with the necessary credentials. If you don't want to tweet your GIFs, don't create the app, and disable the functionality by setting `tweet = False` in `gifcam.py`.
-  - Optional; Install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
+  - Optional; Install mount USB if you want to use the `gifcamusb.py` script instead (no twitter, good for Pis without wifi. http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
   - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
 
 
 ### Create Autorun Script:
-  - Run -- `sudo crontab -e`
+  - Run -- `crontab -e`
   - add this line to end of that file - `@reboot sh /home/pi/gifcam/launcher.sh`
   
   
 ### Permissions:
   - If hitting "permission denied" run - `sudo chown -R pi /home/pi/gifcam/`
-
+  
+### Optional: Setup a Samba shared directory to access your GIFs over WiFi
+  - Install samba: `sudo apt-get install samba samba-common-bin`
+  - Create a backup of the default samba configuration: `sudo mv /etc/samba/smb.conf /etc/samba/smb.conf/$(date +%F)`
+    This will create a copy, with to day's date on the extension.
+  -  Set the gif directory as a shared directory: `sudo nano /etc/samba/smb.conf` and add the following chunk:
+  ```
+  [gifs]
+    comment = GIF share
+    path = /home/pi/gifcam/gifs
+    browseable = yes
+    read only = no
+  ```
   
 ## In-Depth instructions (Pi Zero W from first boot. These instructions will work for other models except for USB OTG steps)
   - Flash SD card with Jessie Lite
