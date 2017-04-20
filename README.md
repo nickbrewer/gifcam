@@ -15,7 +15,12 @@
 ## Change Camera Behaviour
 The behaviour of the camera is controlled by a few _Behaviour Variables_. These are in `gifcam.py`.
 With these variables you can change the frame-number and time duration of gifs, and control tweeting behaviour.
+- `tweet = True/False` Enables or Disables an automatic tweet of the captured gif. This significantly increases the time needed in between GIF captures.
+- `num_frame` Sets the number of frames in the gif
+- `gif_delay` Sets the number of milliseconds a frame is displayed in the gif.
+- `rebound = True/False` Create a gif that loops start <=> end
 
+For now these variables are programmed into the script, but it would be trivial to connect extra switches to your Pi that control these variables. Perhaps a rotary switch to select frame number, and sliding switches to control rebound and tweet behaviour.
 
 ## 3D Printer Files:
 - Download Here - http://www.thingiverse.com/thing:1761082
