@@ -27,11 +27,11 @@
   - (Optional) twython -- https://github.com/ryanmcgrath/twython
 
 ## Basic Setup (if you already have a working Pi):
-Detailed steps on how to get your Pi Zero W up and running without a keyboard, monitor or mouse are covered at the bottom of this text, in the *In-Depth Instructions*
+Detailed steps on how to get your Pi Zero W up and running without a keyboard, monitor or mouse are covered at the bottom of this text, in the _In-Depth Instructions_
   - Run -- `sudo apt-get update`
   - Run -- `sudo apt-get upgrade`
   - Install PiCamera -- `sudo apt-get install python-picamera`
-  - Make sure camera interface is enabled with `sudo raspi-config` > Interfaces > Camera
+  - Make sure camera interface is enabled with `sudo raspi-config` > Interfacing Options > Camera
   - Install GraphicsMagick -- `sudo apt-get install graphicsmagick`
   - Install Gitcore -- `sudo apt-get install git-core`
   - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
@@ -39,15 +39,14 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Optional, install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
   - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
 
+
 ### Create Autorun Script:
-  - Run -- sudo crontab -e
-  - add this line to end of that file - @reboot sh /home/pi/gifcam/launcher.sh
+  - Run -- `sudo crontab -e`
+  - add this line to end of that file - `@reboot sh /home/pi/gifcam/launcher.sh`
   
-  (The launcher.sh in this git is setup for the basic gifcam, if you want to use twython or USB you'll have to modify this)
   
 ### Permissions:
-  - If hitting "permission denied" run - sudo chown -R pi /home/pi/gifcam/
-
+  - If hitting "permission denied" run - `sudo chown -R pi /home/pi/gifcam/`
 
   
 ## In-Depth instructions (Pi Zero W from first boot. These instructions will work for other models except for USB OTG steps)
@@ -69,4 +68,4 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   - Enable SSH: create an empty file called `ssh` in the boot partition. Make sure there is no file extension.
   - Power the Pi and open an SSH session. If you're accessing over wifi, SSH to `pi@raspberrypi`. If you're accessing over USB OTG, SSH to `pi@raspberrypi.local`
   - On first boot give the Pi a meaningful hostname, like `gifcam`. This will avoid hostname conflicts on your network if you deploy another Raspberry Pi.
-  - Follow the *Basic Setup* instructions
+  - Follow the _Basic Setup_ instructions
