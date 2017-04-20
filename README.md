@@ -51,7 +51,7 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
   
 ## In-Depth instructions (Pi Zero W from first boot. These instructions will work for other models except for USB OTG steps)
   - Flash SD card with Jessie Lite
-  - Setup USB OTG network access. This will allow you to always SSH into the Pi via a direct connection through USB.
+  - Setup USB OTG network access. This will allow you to always SSH into the Pi via a direct connection through USB - useful if you have problems with WiFi at any point.
     - Open the boot partition (in Windows Explorer, Finder etc) and add to the bottom of the `config.txt` file `dtoverlay=dwc2` on a new line, then save the file.
     - Open `cmdline.txt`. Very careful with the syntax in this file: Each parameter is seperated by a single space (it does not use newlines). Insert `modules-load=dwc2,g_ether` after rootwait
   - Setup WiFi access for first boot:
@@ -64,6 +64,7 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
         key_mgmt=WPA-PSK
       }
       ```
+    - You can follow this process at any time to overwrite the WiFi credentials if you have to.
   - Enable SSH: create an empty file called `ssh` in the boot partition. Make sure there is no file extension.
   - Power the Pi and open an SSH session. If you're accessing over wifi, SSH to `pi@raspberrypi`. If you're accessing over USB OTG, SSH to `pi@raspberrypi.local`
   - On first boot give the Pi a meaningful hostname, like `gifcam`. This will avoid hostname conflicts on your network if you deploy another Raspberry Pi.
