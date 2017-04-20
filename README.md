@@ -42,7 +42,7 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
   - Install Gitcore -- `sudo apt-get install git-core`
   - Install GifCam -- sudo git clone https://github.com/michaelruppe/gifcam.git
   - Install pip: `sudo apt-get install python-pip`
-  - Install twython: `pip install twython` -- https://github.com/ryanmcgrath/twython
+  - Install twython: `sudo pip install twython` -- https://github.com/ryanmcgrath/twython
   - Create a twitter app at https://apps.twitter.com/ and populate `gifcam.py` with the necessary credentials. If you don't want to tweet your GIFs, don't create the app, and disable the functionality by setting `tweet = False` in `gifcam.py`.
   - Optional; Install mount USB - http://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/
   - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
