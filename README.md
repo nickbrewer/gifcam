@@ -66,5 +66,5 @@ Detailed steps on how to get your Pi Zero W up and running without a keyboard, m
       ```
   - Enable SSH: create an empty file called `ssh` in the boot partition. Make sure there is no file extension.
   - Power the Pi and open an SSH session. If you're accessing over wifi, SSH to `pi@raspberrypi`. If you're accessing over USB OTG, SSH to `pi@raspberrypi.local`
-  - On first boot give the Pi a meaningful hostname, like `pigrrl`. This will avoid hostname conflicts on your network if you deploy another Raspberry Pi.
+  - On first boot give the Pi a meaningful hostname, like `gifcam`. This will avoid hostname conflicts on your network if you deploy another Raspberry Pi.
   - Follow the *Basic Setup* instructions
