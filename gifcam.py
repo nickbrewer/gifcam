@@ -78,7 +78,7 @@ def tweet_pics():
         print('Posting to Twitter')
         photo = open(filename + ".gif", 'rb')
         response = twitter.upload_media(media=photo)
-        twitter.update_status(status='Taken with LoFi Gif Camera', media_ids=[response['media_id']])
+        twitter.update_status(status='Taken with #PIX-E Gif Camera', media_ids=[response['media_id']])
     except:
         # Display error with long status light
         statusLed.ChangeDutyCycle(100)
