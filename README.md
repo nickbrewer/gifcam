@@ -76,10 +76,12 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
   - You can should now be able to access your networked drive. On Windows, enter \\gifcam into your explorer address bar and you should be prompted for the **samba** username and password you created earlier.
   
 ## In-Depth instructions (Pi Zero W from first boot. These instructions will work for other models except for USB OTG steps)
+**Complete the following steps on your computer. We will be creating and modifying files in the small "BOOT" partition of the SD card. On Windows, this is the drive that appears when you plug in your SD card.**
   - Flash SD card with Jessie Lite
+  - Open the SD card in your File Explorer.
   - Setup USB OTG network access. This will allow you to always SSH into the Pi via a direct connection through USB - useful if you have problems with WiFi at any point.
-    - Open the boot partition (in Windows Explorer, Finder etc) and add to the bottom of the `config.txt` file `dtoverlay=dwc2` on a new line, then save the file.
-    - Open `cmdline.txt`. Very careful with the syntax in this file: Each parameter is seperated by a single space (it does not use newlines). Insert `modules-load=dwc2,g_ether` after rootwait
+    - Open the file `config.txt` and add to the bottom `dtoverlay=dwc2` on a new line, then save the file.
+    - Open `cmdline.txt`. Very careful with the syntax in this file: Each parameter is seperated by a single space (it does not use newlines). Insert `modules-load=dwc2,g_ether` after rootwait. Make sure there is a single space before and after this piece of text.
   - Setup WiFi access for first boot:
     - Create a file called `wpa_supplicant.conf` in the boot parition.
     - Paste the following text into the file, filling in your own WiFi SSID (network name) and password.
