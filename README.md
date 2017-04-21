@@ -71,7 +71,6 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
     read only = no
   ```
   - Create samba users: execute `sudo smbpasswd -a pi` and enter your desired password. Whether you choose to keep this as the default (unsecure) is up to you. This will be the username and password required to access the shared folder.
-  - Note: the gifs directory does not exist yet. It will be created when you snap your first GIF, or if you manually create it with `mkdir /home/pi/gifcam/gifs`.
   - Restart your samba service with `sudo /etc/init.d/smbd stop` then `sudo /etc/init.d/smbd start` (or just reboot with `sudo reboot`)
   - You can should now be able to access your networked drive. On Windows, enter \\gifcam into your explorer address bar and you should be prompted for the **samba** username and password you created earlier.
   
