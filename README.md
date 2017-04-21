@@ -50,8 +50,9 @@ Here I'm assuming we're starting with a clean install of Raspbian Jessie Lite. I
   - To access your GIFs over WiFi, configure the gif directory as a samba shared directory
 
 
-### Create Autorun Script:
+### Run the gifcam at boot:
   - Run -- `crontab -e`
+    - You may be prompted to select a text editor if you haven't edited the crontab before. You'll be prompted for a selection between 1 and 3. I choose nano, which is 2 - this is also the default choice, indicated by the `[2]` .
   - add this line to end of that file - `@reboot sh /home/pi/gifcam/launcher.sh`
   
   
