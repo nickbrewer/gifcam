@@ -57,11 +57,12 @@ statusLed = GPIO.PWM(led_2, 2)
 # Camera
 #
 ########################
-camera = picamera.PiCamera()
-camera.resolution = (540, 405)
-camera.rotation = 90
+# Pi camera settings - don't have one (yet) so commenting out
+#camera = picamera.PiCamera()
+#camera.resolution = (540, 405)
+#camera.rotation = 90
 #camera.brightness = 70
-camera.image_effect = 'none'
+#camera.image_effect = 'none'
 ##GPIO.output(led_2, 1)
 
 # Indicate ready status
@@ -97,7 +98,10 @@ try:
 
             randomstring = random_generator()
             for i in range(num_frame):
-                camera.capture('{0:04d}.jpg'.format(i))
+                #For pi camera
+                #camera.capture('{0:04d}.jpg'.format(i))
+                # For webcam
+                
 
             ### PROCESSING GIF ###
             statusLed.ChangeDutyCycle(50)
