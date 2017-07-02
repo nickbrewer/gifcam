@@ -7,14 +7,18 @@ import os
 import random, string
 from twython import Twython
 
+import pygame
+from pygame.locals import QUIT, KEYDOWN, K_ESCAPE
+
+
 ########################
 #
 # Behaviour Variables
 #
 ########################
-num_frame = 8       # Number of frames in Gif
+num_frame = 20       # Number of frames in Gif
 gif_delay = 15      # Frame delay [ms]
-rebound = True      # Create a video that loops start <=> end
+rebound = False      # Create a video that loops start <=> end
 tweet = False       # Tweets the GIF after capturing
 
 
@@ -42,9 +46,9 @@ twitter = Twython(APP_KEY, APP_SECRET,
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-button = 19 #Button GPIO Pin
+button = 24 #Button GPIO Pin = physical pin 18
 GPIO.setup(button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-led_1 = 12 #Status LED GPIO Pin
+led_1 = 4 #Status LED GPIO Pin = physical pin 7
 GPIO.setup(led_1, GPIO.OUT)
 buttonLed = GPIO.PWM(led_1, 10)
 led_2 = 21 #ON/OFF LED Pin
@@ -70,6 +74,8 @@ buttonLed.start(100)
 statusLed.start(0)
 
 print('System Ready')
+surface = pygame.image.load('instructions.png').convert()
+pygame.display.update() 
 
 def random_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
@@ -93,6 +99,7 @@ try:
         
             ### TAKING PICTURES ###
             print('Gif Started')
+            
             statusLed.ChangeDutyCycle(0)
             buttonLed.ChangeDutyCycle(50)
 
