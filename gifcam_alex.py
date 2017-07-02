@@ -42,9 +42,9 @@ twitter = Twython(APP_KEY, APP_SECRET,
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-button = 19 #Button GPIO Pin
+button = 24 #Button GPIO Pin
 GPIO.setup(button, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-led_1 = 12 #Status LED GPIO Pin
+led_1 = 4 #Status LED GPIO Pin
 GPIO.setup(led_1, GPIO.OUT)
 buttonLed = GPIO.PWM(led_1, 10)
 led_2 = 21 #ON/OFF LED Pin
