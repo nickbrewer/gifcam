@@ -7,6 +7,14 @@ import os
 import random, string
 from twython import Twython
 
+import pygame
+from pygame.locals import *
+pygame.init()
+WIDTH = 1080
+HEIGHT = 810
+windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
+
+
 ########################
 #
 # Behaviour Variables
@@ -58,7 +66,7 @@ statusLed = GPIO.PWM(led_2, 2)
 #
 ########################
 camera = picamera.PiCamera()
-camera.resolution = (540, 405)
+camera.resolution = (1080, 810)
 camera.rotation = 90
 #camera.brightness = 70
 camera.image_effect = 'none'
@@ -67,6 +75,12 @@ camera.image_effect = 'none'
 # Indicate ready status
 buttonLed.start(100)
 statusLed.start(0)
+
+
+img = pygame.image.load("intro.png")
+windowSurface.blit(img, (0, 0))
+pygame.display.flip()
+
 
 print('System Ready')
 
@@ -90,8 +104,15 @@ try:
     while True:
         if GPIO.input(button) == False: # Button Pressed
         
+            time.sleep(2.5)
+
+
             ### TAKING PICTURES ###
             print('Gif Started')
+            img = pygame.image.load("instructions.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+
             statusLed.ChangeDutyCycle(0)
             buttonLed.ChangeDutyCycle(50)
 
@@ -113,6 +134,12 @@ try:
                     
             filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
             print('Processing')
+
+            img = pygame.image.load("processing.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+
+
             graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
             os.system(graphicsmagick)
             os.system("rm ./*.jpg") # cleanup source images
@@ -124,7 +151,17 @@ try:
                 tweet_pics()
             
             print('Done')
+
+            img = pygame.image.load("finished2.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+
+
             print('System Ready')
+            img = pygame.image.load("intro.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+
 
         else : # Button NOT pressed
             ### READY TO MAKE GIF ###
