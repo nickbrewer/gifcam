@@ -10,8 +10,8 @@ from twython import Twython
 import pygame
 from pygame.locals import *
 pygame.init()
-WIDTH = 1080
-HEIGHT = 810
+WIDTH = 800
+HEIGHT = 600
 windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
 
 
@@ -66,7 +66,7 @@ statusLed = GPIO.PWM(led_2, 2)
 #
 ########################
 camera = picamera.PiCamera()
-camera.resolution = (1080, 810)
+camera.resolution = (800, 600)
 camera.rotation = 90
 #camera.brightness = 70
 camera.image_effect = 'none'
@@ -77,7 +77,7 @@ buttonLed.start(100)
 statusLed.start(0)
 
 
-img = pygame.image.load("intro.png")
+img = pygame.image.load("home.png")
 windowSurface.blit(img, (0, 0))
 pygame.display.flip()
 
@@ -104,14 +104,38 @@ try:
     while True:
         if GPIO.input(button) == False: # Button Pressed
         
-            time.sleep(2.5)
-
+            img = pygame.image.load("in 3 seconds.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+            time.sleep(3)
+            
+            img = pygame.image.load("ready.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+            time.sleep(1)
+            
+            img = pygame.image.load("3.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+            time.sleep(1)
+                        
+            img = pygame.image.load("2.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+            time.sleep(1)
+                        
+            img = pygame.image.load("1.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+            time.sleep(1)
+                        
+            img = pygame.image.load("shooting.png")
+            windowSurface.blit(img, (0, 0))
+            pygame.display.flip()
+            time.sleep(1)
 
             ### TAKING PICTURES ###
             print('Gif Started')
-            img = pygame.image.load("instructions.png")
-            windowSurface.blit(img, (0, 0))
-            pygame.display.flip()
 
             statusLed.ChangeDutyCycle(0)
             buttonLed.ChangeDutyCycle(50)
@@ -152,13 +176,13 @@ try:
             
             print('Done')
 
-            img = pygame.image.load("finished2.png")
+            img = pygame.image.load("done.png")
             windowSurface.blit(img, (0, 0))
             pygame.display.flip()
 
 
             print('System Ready')
-            img = pygame.image.load("intro.png")
+            img = pygame.image.load("home.png")
             windowSurface.blit(img, (0, 0))
             pygame.display.flip()
 
