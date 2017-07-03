@@ -76,7 +76,7 @@ camera.image_effect = 'none'
 buttonLed.start(100)
 statusLed.start(0)
 
-
+# Display the home image
 img = pygame.image.load("home.png")
 windowSurface.blit(img, (0, 0))
 pygame.display.flip()
@@ -163,10 +163,13 @@ try:
             windowSurface.blit(img, (0, 0))
             pygame.display.flip()
 
-
+            # can i use gm to specify the size of the gif so I can keep big images but not have a ridiculous sized gif?
             graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
             os.system(graphicsmagick)
-            os.system("rm ./*.jpg") # cleanup source images
+            
+            # copy sources images to jpg folder
+            os.system("mv ./*.jpg /home/pi/gifcam/jpgs/)
+            # os.system("rm ./*.jpg") # cleanup source images
 
             ### TWEETING ###
             if tweet == True:
@@ -179,7 +182,7 @@ try:
             img = pygame.image.load("done.png")
             windowSurface.blit(img, (0, 0))
             pygame.display.flip()
-
+            time.sleep(1)
 
             print('System Ready')
             img = pygame.image.load("home.png")
