@@ -20,9 +20,9 @@ windowSurface = pygame.display.set_mode((WIDTH, HEIGHT), 0, 32)
 # Behaviour Variables
 #
 ########################
-num_frame = 8       # Number of frames in Gif
+num_frame = 10       # Number of frames in Gif
 gif_delay = 15      # Frame delay [ms]
-rebound = True      # Create a video that loops start <=> end
+rebound = False      # Create a video that loops start <=> end
 tweet = False       # Tweets the GIF after capturing
 
 
@@ -32,10 +32,10 @@ tweet = False       # Tweets the GIF after capturing
 # Ensure 'tweet' behaviour-variable is True if you want to tweet pictures.
 #
 ########################
-APP_KEY = 'YOUR API KEY'
-APP_SECRET = 'YOUR API SECRET'
-OAUTH_TOKEN = 'YOUR ACCESS TOKEN'
-OAUTH_TOKEN_SECRET = 'YOUR ACCESS TOKEN SECRET'
+APP_KEY = 'APP_KEY '
+APP_SECRET = 'APP_SECRET '
+OAUTH_TOKEN = 'OAUTH_TOKEN'
+OAUTH_TOKEN_SECRET = 'OAUTH_TOKEN_SECRET'
 
 #setup the twitter api client
 twitter = Twython(APP_KEY, APP_SECRET,
@@ -78,18 +78,24 @@ statusLed.start(0)
 
 # Display the home image
 img = pygame.image.load("home.png")
+pygame.mouse.set_visible(False) #hide the mouse cursor
 windowSurface.blit(img, (0, 0))
 pygame.display.flip()
 
 
 print('System Ready')
 
-def random_generator(size=10, chars=string.ascii_uppercase + string.digits):
+def random_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
 def tweet_pics():
     try:
         print('Posting to Twitter')
+        img = pygame.image.load("twitter.png")
+        windowSurface.blit(img, (0, 0))
+        pygame.display.flip()
+        time.sleep(3)
+
         photo = open(filename + ".gif", 'rb')
         response = twitter.upload_media(media=photo)
         twitter.update_status(status='Taken with #PIX-E Gif Camera', media_ids=[response['media_id']])
@@ -142,7 +148,7 @@ try:
 
             randomstring = random_generator()
             for i in range(num_frame):
-                camera.capture('{0:04d}.jpg'.format(i))
+                camera.capture(randomstring + '{0:04d}.jpg'.format(i))
 
             ### PROCESSING GIF ###
             statusLed.ChangeDutyCycle(50)
@@ -164,11 +170,15 @@ try:
             pygame.display.flip()
 
             # can i use gm to specify the size of the gif so I can keep big images but not have a ridiculous sized gif?
-            graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
+            graphicsmagick = "gm convert -size 640x480 -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
             os.system(graphicsmagick)
             
+            # rename jpgs to have gif filename at start
+            #os.system("rename 's/^/1/' 00*")
             # copy sources images to jpg folder
-            os.system("mv ./*.jpg /home/pi/gifcam/jpgs/)
+            #jpg_dir = os.path.join('/home/pi/gifcam/jpgs/', randomstring) 
+            #os.makedirs(jpg_dir)
+            os.system("mv ./*.jpg '/home/pi/gifcam/jpgs/'")
             # os.system("rm ./*.jpg") # cleanup source images
 
             ### TWEETING ###
