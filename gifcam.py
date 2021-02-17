@@ -12,8 +12,8 @@ from twython import Twython
 # Behaviour Variables
 #
 ########################
-num_frame = 8       # Number of frames in Gif
-gif_delay = 15      # Frame delay [ms]
+num_frame = 20       # Number of frames in Gif
+gif_delay = 5      # Frame delay [ms]
 rebound = True      # Create a video that loops start <=> end
 tweet = False       # Tweets the GIF after capturing
 
