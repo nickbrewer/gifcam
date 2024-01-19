@@ -7,28 +7,6 @@ import os
 import random, string
 import toml
 
-########################
-#
-# Behaviour Variables
-#
-########################
-#num_frame = 20       # Number of frames in Gif
-#gif_delay = 5      # Frame delay [ms]
-#rebound = True      # Create a video that loops start <=> end
-#tweet = False       # Tweets the GIF after capturing
-
-
-########################
-#
-# Mastodon (Optional)
-# Ensure 'post' behaviour-variable is True if you want to tweet pictures.
-#
-########################
-APP_KEY = 'YOUR API KEY'
-APP_SECRET = 'YOUR API SECRET'
-OAUTH_TOKEN = 'YOUR ACCESS TOKEN'
-OAUTH_TOKEN_SECRET = 'YOUR ACCESS TOKEN SECRET'
-
 #  Config
 with open('config.toml', 'r') as file:
   config = toml.load(file)
@@ -95,15 +73,15 @@ def post_to_bereal():
   pass
 
 def post_to_mastodon():
-    try:
-      print("Posting to Mastodon")
-      media_ids = mastodon.media_post(filename, mime_type='image/gif')
-      mastodon.status_post(mastodon_status, media_ids=media_ids)
-   except:
-      # Display error with long status light
-      statusLed.ChangeDutyCycle(100)
-      buttonLed.ChangeDutyCycle(0)
-      sleep(2)
+  try:
+    print("Posting to Mastodon")
+    media_ids = mastodon.media_post(filename, mime_type='image/gif')
+    mastodon.status_post(mastodon_status, media_ids=media_ids)
+  except:
+    # Display error with long status light
+    statusLed.ChangeDutyCycle(100)
+    buttonLed.ChangeDutyCycle(0)
+    sleep(2)
 
 try:
     while True:
@@ -131,7 +109,7 @@ try:
                     
             filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
             print('Processing')
-            graphicsmagick = "gm convert -delay " + str(gif_delay)) + " " + "*.jpg " + filename + ".gif" 
+            graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
             os.system(graphicsmagick)
             os.system("rm ./*.jpg") # cleanup source images
 

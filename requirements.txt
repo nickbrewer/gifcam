@@ -1,0 +1,12 @@
+blurhash==1.1.4
+certifi==2023.11.17
+charset-normalizer==3.3.2
+decorator==5.1.1
+idna==3.6
+Mastodon.py==1.8.1
+python-dateutil==2.8.2
+python-magic==0.4.27
+requests==2.31.0
+six==1.16.0
+toml==0.10.2
+urllib3==2.1.0
