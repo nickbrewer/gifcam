@@ -6,6 +6,7 @@ from os import system
 import os
 import random, string
 import toml
+from mastodon import Mastodon
 
 #  Config
 with open('config.toml', 'r') as file:
