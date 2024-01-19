@@ -1,0 +1,18 @@
+# BeReal API Configuration
+[bereal]
+phone_number = "PHONE_NUMBER"
+enabled = false
+status = "Status for BeReal API"
+
+# Mastodon API Configuration
+[mastodon]
+access_token = "MASTODON_ACCESS_TOKEN"
+server = "https://MASTODON_INSTANCE_URL"
+enabled = true
+status = "Taken with #PIX-E Gif Camera"
+
+# General Configuration
+[gif]
+num_frame = 10
+delay = 100
+rebound = true

@@ -5,23 +5,23 @@ import RPi.GPIO as GPIO
 from os import system
 import os
 import random, string
-from twython import Twython
+import toml
 
 ########################
 #
 # Behaviour Variables
 #
 ########################
-num_frame = 20       # Number of frames in Gif
-gif_delay = 5      # Frame delay [ms]
-rebound = True      # Create a video that loops start <=> end
-tweet = False       # Tweets the GIF after capturing
+#num_frame = 20       # Number of frames in Gif
+#gif_delay = 5      # Frame delay [ms]
+#rebound = True      # Create a video that loops start <=> end
+#tweet = False       # Tweets the GIF after capturing
 
 
 ########################
 #
-# Twitter (Optional)
-# Ensure 'tweet' behaviour-variable is True if you want to tweet pictures.
+# Mastodon (Optional)
+# Ensure 'post' behaviour-variable is True if you want to tweet pictures.
 #
 ########################
 APP_KEY = 'YOUR API KEY'
@@ -29,10 +29,28 @@ APP_SECRET = 'YOUR API SECRET'
 OAUTH_TOKEN = 'YOUR ACCESS TOKEN'
 OAUTH_TOKEN_SECRET = 'YOUR ACCESS TOKEN SECRET'
 
-#setup the twitter api client
-twitter = Twython(APP_KEY, APP_SECRET,
-                  OAUTH_TOKEN, OAUTH_TOKEN_SECRET)
+#  Config
+with open('config.toml', 'r') as file:
+  config = toml.load(file)
 
+# Gif Config
+gif_config = config.get('gif', {})
+num_frame = gif_config.get('num_frame')
+gif_delay = gif_config.get('delay')
+rebound = gif_config.get('rebound')
+
+# Bereal Config
+bereal_config = config.get('bereal', {})
+
+# Mastodon Config
+mastodon_config = config.get('mastodon', {})
+access_token = mastodon_config.get('access_token')
+server = mastodon_config.get('server')
+mastodon_status = mastodon_config.get('status')
+mastodon = Mastodon(
+    access_token=access_token,
+    api_base_url=server
+)
 
 ########################
 #
@@ -73,23 +91,23 @@ print('System Ready')
 def random_generator(size=10, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for x in range(size))
 
-def tweet_pics():
+def post_to_bereal():
+  pass
+
+def post_to_mastodon():
     try:
-        print('Posting to Twitter')
-        photo = open(filename + ".gif", 'rb')
-        response = twitter.upload_media(media=photo)
-        twitter.update_status(status='Taken with #PIX-E Gif Camera', media_ids=[response['media_id']])
-    except:
-        # Display error with long status light
-        statusLed.ChangeDutyCycle(100)
-        buttonLed.ChangeDutyCycle(0)
-        sleep(2)
-        
+      print("Posting to Mastodon")
+      media_ids = mastodon.media_post(filename, mime_type='image/gif')
+      mastodon.status_post(mastodon_status, media_ids=media_ids)
+   except:
+      # Display error with long status light
+      statusLed.ChangeDutyCycle(100)
+      buttonLed.ChangeDutyCycle(0)
+      sleep(2)
 
 try:
     while True:
         if GPIO.input(button) == False: # Button Pressed
-        
             ### TAKING PICTURES ###
             print('Gif Started')
             statusLed.ChangeDutyCycle(0)
@@ -113,16 +131,20 @@ try:
                     
             filename = '/home/pi/gifcam/gifs/' + randomstring + '-0'
             print('Processing')
-            graphicsmagick = "gm convert -delay " + str(gif_delay) + " " + "*.jpg " + filename + ".gif" 
+            graphicsmagick = "gm convert -delay " + str(gif_delay)) + " " + "*.jpg " + filename + ".gif" 
             os.system(graphicsmagick)
             os.system("rm ./*.jpg") # cleanup source images
 
             ### TWEETING ###
-            if tweet == True:
+            if bereal_config.get('enabled'):
                 statusLed.ChangeDutyCycle(25)
                 buttonLed.ChangeDutyCycle(0)
-                tweet_pics()
-            
+                post_to_bereal()
+            if mastodon_config.get('enabled'):
+                statusLed.ChangeDutyCycle(25)
+                buttonLed.ChangeDutyCycle(0)
+                post_to_mastodon()
+
             print('Done')
             print('System Ready')
 

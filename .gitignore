@@ -1,2 +1,5 @@
 *.gif
 *.jpg
+config.toml
+bereal_states/*
+__pycache__/
