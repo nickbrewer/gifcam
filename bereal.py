@@ -2,10 +2,11 @@ import requests
 import pickle
 import os
 import geocoder
-import http.server
-import socketserver
-import threading
+import base64
+import json
+import time
 
+import socket
 import http.server
 import socketserver
 import threading
@@ -49,11 +50,10 @@ class HttpOTPServer:
                 self.server.callback(otp)
                 self.server.shutdown()
 
-        ip_address = socket.gethostbyname(socket.gethostname())
-
+        ip_address = '0.0.0.0'
         self.server = socketserver.TCPServer((ip_address, self.port), OTPRequestHandler)
         threading.Thread(target=self.server.serve_forever).start()
-        return f"http://localhost:{self.port}"
+        return f"http://{ip_address}:{self.port}"
 
 
 class BeReal:
@@ -73,9 +73,10 @@ class BeReal:
   def authenticate(self):
     response = self.send_code()
     if response.status_code == 201:
-      otp_server = HttpOTPServer(self.verify)
-      otp_url = otp_server.start_server()
-      print(f"Visit {otp_url} in your web browser to enter the OTP.")
+      self.verify(input("OTP: "))
+      #otp_server = HttpOTPServer(self.verify)
+      #otp_url = otp_server.start_server()
+      #print(f"Visit {otp_url} in your web browser to enter the OTP.")
     else:
       error_msg = f"Failed to authenticate: {response.text}"
       print(error_msg)
@@ -157,28 +158,34 @@ class BeReal:
        error_msg = f"Failed to get upload tokens. Status code: {response.status_code}. Response: {response.text}"
        raise Exception(error_msg)
 
-  def upload_photo(self, token_data, img_path, resize=True):
+  def upload_photo(self, token_data, img_path, resize=False):
     print("Uploading photos")
     endpoint = "/post/upload/photo"
     url = self.base_url + endpoint
-    headers = {"token": self.jwt_token}
-    files = {"img": open(img_path, "rb")}
-    data = {"tokenData": token_data, "resize": resize}
-    response = requests.put(url, headers=headers, files=files, data=data)
-    if response.status_code == 200:
-        return response.json()
-    else:
-        error_msg = f"Failed to upload photo. Status code: {response.status_code}. Response: {response.text}"
-        raise Exception(error_msg)
-  
+    headers = {"token": self.jwt_token, "Authorization": f"Bearer {self.jwt_token}"}
+
+    with open(img_path, "rb") as img_file:
+      files = {"img": img_file}
+      data = {
+        "tokenData": token_data,
+        "resize": resize
+      }
+      response = requests.put(url, headers=headers, files=files, data=data)
+      if response.status_code == 201:
+          print(response.json())
+          return response.json()
+      else:
+          error_msg = f"Failed to upload photo. Status code: {response.status_code}. Response: {response.text}"
+          raise Exception(error_msg)
+
   def upload_post_data(self, post_data, token_data):
     print("Uploading post")
     endpoint = "/post/upload/data"
     url = self.base_url + endpoint
-    headers = {"token": self.jwt_token, "accept": "application/json"}
-    data = {"postData": post_data, "tokenData": token_data}
-    response = requests.post(url, headers=headers, json=data)
-    if response.status_code == 201:
+    headers = {"token": token_data, "accept": "application/json"}
+    data = {"postData": post_data, "tokenData": self.jwt_token}
+    response = requests.post(url, headers=headers,  data=data)
+    if response.status_code == 200:
         return response.json()
     else:
        error_msg = f"Failed to upload post data. Status code: {response.status_code}. Response: {response.text}"
