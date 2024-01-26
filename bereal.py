@@ -162,30 +162,31 @@ class BeReal:
     print("Uploading photos")
     endpoint = "/post/upload/photo"
     url = self.base_url + endpoint
-    headers = {"token": self.jwt_token, "Authorization": f"Bearer {self.jwt_token}"}
+    headers = {"token": self.jwt_token, "accept":"*/*"} #, "Content-Type": "multipart/form-data"}
 
-    with open(img_path, "rb") as img_file:
-      files = {"img": img_file}
-      data = {
-        "tokenData": token_data,
-        "resize": resize
-      }
-      response = requests.put(url, headers=headers, files=files, data=data)
-      if response.status_code == 201:
-          print(response.json())
-          return response.json()
-      else:
-          error_msg = f"Failed to upload photo. Status code: {response.status_code}. Response: {response.text}"
-          raise Exception(error_msg)
+    files = {
+      'img': (img_path, open(img_path, 'rb'), 'image/jpeg'),
+      #'tokenData': token_data,
+      "tokenData": (None, token_data),
+      "resize": (None, "true")
+    }
+    response = requests.put(url, headers=headers, files=files)
+    if response.status_code == 200:
+       print(response.json())
+       return response.json()
+    else:
+       error_msg = f"Failed to upload photo. Status code: {response.status_code}. Response: {response.text}"
+       raise Exception(error_msg)
 
   def upload_post_data(self, post_data, token_data):
     print("Uploading post")
     endpoint = "/post/upload/data"
     url = self.base_url + endpoint
-    headers = {"token": token_data, "accept": "application/json"}
-    data = {"postData": post_data, "tokenData": self.jwt_token}
-    response = requests.post(url, headers=headers,  data=data)
-    if response.status_code == 200:
+    headers = {"token": self.jwt_token, "accept": "application/json"} #, "Content-Type": "application/json"}
+    data = {"postData": post_data, "tokenData": token_data}
+    print(data)
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code == 201:
         return response.json()
     else:
        error_msg = f"Failed to upload post data. Status code: {response.status_code}. Response: {response.text}"
