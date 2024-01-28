@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Preview
+{% endblock %}
+
+{% block content %}
+    <h1>Video Preview</h1>
+    <video controls>
+        <source src="{{ url_for('preview_video') }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+{% endblock %}

@@ -1,3 +1,24 @@
+## Gifcam Revised
+
+## Changes
+- Replaces Twitter (twython) with Mastodon (Mastodon.py)
+- Web App to allow config changes, and a way to view all generated gifs
+- Picamera2 support (supports updated camera modules)
+- (temporarily) removed status led because I stupidly forgot to add it to my camera
+- Config file
+- WIP: BeReal Integration (wating on [this](https://github.com/chemokita13/beReal-api/issues/27))
+
+## Potential Future Changes
+- Improved Gallery view
+- Security/passwords on web app
+- Pixelfed Support (Probably already works with Mastodon.py but untested) also pixelfed Story support
+- Timelapse Mode
+- Security Camera Mode (with homeassistant support?)
+- Disapprove/Approve Mode for posts (e.g. wait for approval on gif before posting to mastodon)
+- Threading to allow taking photos *while* posting to mastodon simultaneously
+- Enable/Disable gifcam mode from web ui
+
+----
 ## Features
 - Creates a GIF at the press of a button and saves it locally
 - Optionally tweet the created GIF

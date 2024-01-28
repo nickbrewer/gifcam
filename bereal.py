@@ -11,51 +11,6 @@ import http.server
 import socketserver
 import threading
 
-class HttpOTPServer:
-    def __init__(self, callback, port=8090):
-        self.callback = callback
-        self.port = port
-
-    def start_server(self):
-        class OTPRequestHandler(http.server.BaseHTTPRequestHandler):
-            def do_GET(self):
-                self.send_response(200)
-                self.send_header("Content-type", "text/html")
-                self.end_headers()
-                self.wfile.write("""
-                    <html>
-                    <body>
-                    <form method="post">
-                    OTP Code: <input type="text" name="otp">
-                    <input type="submit" value="Submit">
-                    </form>
-                    </body>
-                    </html>
-                """.encode())
-
-            def do_POST(self):
-                content_length = int(self.headers['Content-Length'])
-                post_data = self.rfile.read(content_length).decode()
-                otp = post_data.split("=")[1]
-                self.send_response(200)
-                self.send_header("Content-type", "text/html")
-                self.end_headers()
-                self.wfile.write(f"""
-                    <html>
-                    <body>
-                    <h1>Submitted OTP: {otp}</h1>
-                    </body>
-                    </html>
-                """.encode())
-                self.server.callback(otp)
-                self.server.shutdown()
-
-        ip_address = '0.0.0.0'
-        self.server = socketserver.TCPServer((ip_address, self.port), OTPRequestHandler)
-        threading.Thread(target=self.server.serve_forever).start()
-        return f"http://{ip_address}:{self.port}"
-
-
 class BeReal:
 
   DEFAULT_API_URL = "https://berealapi.fly.dev"
@@ -74,9 +29,6 @@ class BeReal:
     response = self.send_code()
     if response.status_code == 201:
       self.verify(input("OTP: "))
-      #otp_server = HttpOTPServer(self.verify)
-      #otp_url = otp_server.start_server()
-      #print(f"Visit {otp_url} in your web browser to enter the OTP.")
     else:
       error_msg = f"Failed to authenticate: {response.text}"
       print(error_msg)

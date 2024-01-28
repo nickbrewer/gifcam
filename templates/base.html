@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}GifCam{% endblock %}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-menu {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .content {
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-menu">
+    <a href="/">Home</a>
+    <h1 class="logo">GifCam</h1>
+    <div></div> <!-- Add any additional content here, like user profile, settings, etc. -->
+  </div>
+  <div class="content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

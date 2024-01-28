@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Config - GifCam{% endblock %}
+
+{% block content %}
+    <h1>Edit Config</h1>
+    <form action="/update" method="post">
+        {% for section, section_config in config.items() %}
+            <h2>{{ section }}</h2>
+            {% for key, value in section_config.items() %}
+                <label for="{{ section }}-{{ key }}">{{ key }}:</label>
+                <input type="text" id="{{ section }}-{{ key }}" name="{{ section }}-{{ key }}" value="{{ value }}"><br>
+            {% endfor %}
+        {% endfor %}
+        <input type="submit" value="Save">
+    </form>
+{% endblock %}
+

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Gallery - GifCam{% endblock %}
+
+{% block content %}
+  <style>
+    /* Styles specific to gallery.html */
+    /* Styles for gallery grid layout */
+    .gallery {
+      /* Retain styles from original gallery.html */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Display 3 images per row */
+      grid-gap: 10px;
+      padding: 20px;
+    }
+
+    .gif-container {
+      /* Retain styles from original gallery.html */
+      position: relative;
+      width: 100%; /* Set the width to fill the grid cell */
+      padding-bottom: 100%; /* Maintain aspect ratio (1:1 for square) */
+      overflow: hidden;
+    }
+
+    .gif-container no-autoplay-gif {
+      /* Retain styles from original gallery.html */
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain; /* Resize gif to fit within the container */
+      max-width: 100%; /* Ensure gif doesn't exceed container width */
+      max-height: 100%; /* Ensure gif doesn't exceed container height */
+    }
+
+    .pagination {
+      /* Retain styles from original gallery.html */
+      margin-top: 20px;
+    }
+
+    .pagination a {
+      /* Retain styles from original gallery.html */
+      display: inline-block;
+      padding: 8px 16px;
+      text-decoration: none;
+      background-color: #f2f2f2;
+      color: #666;
+      border-radius: 5px;
+    }
+
+    .pagination a:hover {
+      /* Retain styles from original gallery.html */
+      background-color: #ddd;
+    }
+
+    .pagination .active {
+      /* Retain styles from original gallery.html */
+      background-color: #4CAF50;
+      color: white;
+    }
+  </style>
+
+  <h1>Gallery</h1>
+
+  <div class="gallery">
+    {% for name in image_names %}
+      <div class="gif-container">
+        <no-autoplay-gif src="{{ url_for('static', filename='gifs/' + name) }}" alt="GIF"></no-autoplay-gif>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    {% if prev_page %}
+      <a href="{{ url_for('gallery', page=prev_page) }}">Previous</a>
+    {% endif %}
+    {% if next_page %}
+      <a href="{{ url_for('gallery', page=next_page) }}">Next</a>
+    {% endif %}
+  </div>
+
+  <script src="{{ url_for('static', filename='no-autoplay-gifs.js') }}"></script>
+  <script>
+    customElements.define('no-autoplay-gif', NoAutoplayGif);
+  </script>
+{% endblock %}
